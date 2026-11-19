@@ -19,6 +19,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: Create CI environment asset
+        run: cp env.example.json assets/env.json
+
       - name: Install dependencies
         run: flutter pub get
 

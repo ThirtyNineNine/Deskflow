@@ -24,6 +24,23 @@ class _TestCurrentOrgId extends CurrentOrgId {
   String? build() => _value;
 }
 
+const _monthNames = <String>[
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь',
+];
+final _currentMonthLabel =
+    '${_monthNames[DateTime.now().month - 1]} ${DateTime.now().year}';
+
 User _makeUser() {
   return User(
     id: 'user-1',
@@ -163,14 +180,14 @@ void main() {
     await tester.tap(find.byKey(const Key('orders-sort-trigger')));
     await tester.pumpAndSettle();
     expect(find.byType(ModalBarrier), findsAtLeastNWidgets(1));
-    expect(find.text('Март 2026'), findsOneWidget);
+    expect(find.text(_currentMonthLabel), findsOneWidget);
     expect(find.byType(RangeSlider), findsNothing);
     await tester.ensureVisible(find.text('По сумме').last);
     await tester.tap(find.text('По сумме'));
     await tester.pumpAndSettle();
 
     expect(find.byType(RangeSlider), findsOneWidget);
-    expect(find.text('Март 2026'), findsNothing);
+    expect(find.text(_currentMonthLabel), findsNothing);
     expect(tester.takeException(), isNull);
   });
 
@@ -184,7 +201,7 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.byType(ModalBarrier), findsAtLeastNWidgets(1));
-    expect(find.text('Март 2026'), findsOneWidget);
+    expect(find.text(_currentMonthLabel), findsOneWidget);
     expect(find.text('По сумме'), findsOneWidget);
     expect(find.byIcon(Icons.chevron_left_rounded), findsAtLeastNWidgets(1));
     expect(find.byIcon(Icons.chevron_right_rounded), findsAtLeastNWidgets(1));
@@ -193,7 +210,7 @@ void main() {
     await tester.tapAt(const Offset(8, 8));
     await tester.pumpAndSettle();
 
-    expect(find.text('Март 2026'), findsNothing);
+    expect(find.text(_currentMonthLabel), findsNothing);
   });
 
   testWidgets('sort sheet keeps По сумме visible without clipping on compact height', (
@@ -264,12 +281,12 @@ void main() {
     await tester.tap(find.byKey(const Key('orders-sort-trigger')));
     await tester.pumpAndSettle();
 
-    expect(find.text('Март 2026'), findsOneWidget);
+    expect(find.text(_currentMonthLabel), findsOneWidget);
 
     await tester.tap(find.text('По дате').last);
     await tester.pumpAndSettle();
 
-    expect(find.text('Март 2026'), findsNothing);
+    expect(find.text(_currentMonthLabel), findsNothing);
   });
 
   testWidgets('period trigger opens bottom sheet and selecting preset updates state', (
