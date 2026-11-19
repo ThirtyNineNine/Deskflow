@@ -376,6 +376,7 @@ void main() {
         'customers': {'name': 'Иванов Иван'},
         'order_items': <Map<String, dynamic>>[
           {
+            'id': 'item-new',
             'order_id': rpcOrderId,
             'product_id': 'prod-1',
             'product_name': 'Виджет',
@@ -389,7 +390,7 @@ void main() {
         'p_organization_id': 'org-1',
         'p_customer_id': 'cust-1',
         'p_status_id': 'st-1',
-        'p_total_amount': 300.0,
+        'p_total_amount': 200.0,
         'p_delivery_cost': 50.0,
         'p_notes': 'RPC order',
         'p_created_by': 'user-1',
